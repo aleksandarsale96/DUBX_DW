@@ -1,0 +1,45 @@
+.btn-etho {
+    color: #e4cb87;
+    background: transparent;
+    border: 1px solid #e4cb87 !important;
+  }
+
+  .btn-etho:hover,
+  .btn-etho:focus,
+  .btn-etho:active,
+  .btn-etho.active,
+  .open .dropdown-toggle.btn-etho {
+    color: #ffffff;
+    background: #e4cb87;
+    border: 1px solid #fefeff !important; 
+  }
+
+  /*.btn-etho:active,
+  .btn-etho.active,
+  .open .dropdown-toggle.btn-etho {
+    background-image: none;
+  }*/
+
+  .btn-etho.disabled,
+  .btn-etho[disabled],
+  fieldset[disabled] .btn-etho,
+  .btn-etho.disabled:hover,
+  .btn-etho[disabled]:hover,
+  fieldset[disabled] .btn-etho:hover,
+  .btn-etho.disabled:focus,
+  .btn-etho[disabled]:focus,
+  fieldset[disabled] .btn-etho:focus,
+  .btn-etho.disabled:active,
+  .btn-etho[disabled]:active,
+  fieldset[disabled] .btn-etho:active,
+  .btn-etho.disabled.active,
+  .btn-etho[disabled].active,
+  fieldset[disabled] .btn-etho.active {
+    background-color: #121b7a;
+    border-color: #121b7a;
+  }
+
+  .btn-etho .badge {
+    color: #121b7a;
+    background-color: #ffffff;
+  }
