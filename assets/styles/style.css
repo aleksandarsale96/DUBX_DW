@@ -187,8 +187,12 @@ body.pg-loaded>.inner {
   background-color: black;
 }
 
+.form-control {
+  color: #fff;
+}
+
 .iziModal-header {
-  background: #e4cb87;
+  background: #2f2f2f !important;
   border: 1px solid #ffffff !important;
 }
 
@@ -471,9 +475,9 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #57a8e2;
-  -webkit-box-shadow: 0 1px 0 0 #57a8e2;
-  box-shadow: 0 1px 0 0 #57a8e2;
+  border-bottom: 1px solid #e4cb87;
+  -webkit-box-shadow: 0 1px 0 0 #e4cb87;
+  box-shadow: 0 1px 0 0 #e4cb87;
 }
 
 label {

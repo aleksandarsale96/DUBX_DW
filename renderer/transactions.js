@@ -46,7 +46,7 @@ class Transactions {
             // var params = vsprintf('?address=%s&fromBlock=%d&toBlock=%d', [addressList[counter].toLowerCase(), startBlock, lastBlock]);
             var params = vsprintf('%s', [addressList[counter].toLowerCase()]);
 
-            $.getJSON("https://explorer.tsf-platform.com/api/v1/address/tx/" + params + "/10/1", function (result) {
+            $.getJSON("https://explorer.arabianchain.org/api/v1/address/tx/" + params + "/10/1", function (result) {
                 result.forEach(element => {
                     var amount = parseFloat(element.value);
                     var timeS = element.timestamp;

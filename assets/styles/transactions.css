@@ -6,14 +6,8 @@
   margin-left: 10px !important;
   color: #ffffff !important; 
   /*background-color: rgb(34, 19, 122) !important;*/
-  background: rgba(57,100,208,1);
-    background: -moz-linear-gradient(left,rgba(57,100,208,1) 0,rgba(45,193,201,1) 100%);
-    background: -webkit-gradient(left top,right top,color-stop(0,rgba(57,100,208,1)),color-stop(100%,rgba(45,193,201,1)));
-    background: -webkit-linear-gradient(left,rgba(57,100,208,1) 0,rgba(45,193,201,1) 100%);
-    background: -o-linear-gradient(left,rgba(57,100,208,1) 0,rgba(45,193,201,1) 100%);
-    background: -ms-linear-gradient(left,rgba(57,100,208,1) 0,rgba(45,193,201,1) 100%);
-    background: linear-gradient(to right,rgba(57,100,208,1) 0,rgba(45,193,201,1) 100%) !important; 
-  border: 1px solid #3964d0 !important;
+  background: #e4cb87 !important;
+  border: 1px solid #e4cb87 !important;
 } 
   
 .dt-button:hover, 
@@ -21,14 +15,8 @@
 .dt-button.active, 
 .open .dropdown-toggle.dt-button { 
   color: #ffffff !important; 
-  background: rgba(45,193,201,1);
-    background: -moz-linear-gradient(left, rgba(45,193,201,1) 0%, rgba(57,100,208,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(45,193,201,1)), color-stop(100%, rgba(57,100,208,1)));
-    background: -webkit-linear-gradient(left, rgba(45,193,201,1) 0%, rgba(57,100,208,1) 100%);
-    background: -o-linear-gradient(left, rgba(45,193,201,1) 0%, rgba(57,100,208,1) 100%);
-    background: -ms-linear-gradient(left, rgba(45,193,201,1) 0%, rgba(57,100,208,1) 100%);
-    background: linear-gradient(to right, rgba(45,193,201,1) 0%, rgba(57,100,208,1) 100%) !important; 
-  border: 1px solid #3964d0 !important; 
+  background: #e4cb87;
+  border: 1px solid #e4cb87 !important; 
 } 
   
 .dt-button.active, 
@@ -51,8 +39,8 @@ fieldset[disabled] .dt-button:active,
 .dt-button.disabled.active, 
 .dt-button[disabled].active, 
 fieldset[disabled] .dt-button.active { 
-  background-color: #1d08d8 !important; 
-  border-color: #1d08d8 !important; 
+  background-color: #e4cb87 !important; 
+  border-color: #e4cb87 !important; 
 } 
   
 .dt-button .badge { 
@@ -154,7 +142,7 @@ table.dataTable {
     background-color: #acbad4; }
   table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
     background-color: #1f2326;
-    color: #1b87d4; 
+    color: #e4cb87; 
   }
   table.dataTable.display tbody tr.odd > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd > .sorting_2 {
     background-color: #1f2327; }
