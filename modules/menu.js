@@ -1,196 +1,198 @@
-const {app, Menu, ipcMain} = require('electron');
+const { app, Menu, ipcMain } = require("electron");
 const open = require("open");
 
 const template = [
-    {
-        label: 'File',
-        submenu: [
-          {
-            label:'Exit',
-            click() {
-                app.quit()
-            }           }
-        ]
-      },
-      {
-    label: 'Edit',
+  {
+    label: "File",
     submenu: [
       {
-        role: 'undo'
+        label: "Exit",
+        click() {
+          app.quit();
+        },
       },
-      {
-        role: 'redo'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'cut'
-      },
-      {
-        role: 'copy'
-      },
-      {
-        role: 'paste'
-      },
-      {
-        role: 'delete'
-      },
-      {
-        role: 'selectall'
-      }
-    ]
+    ],
   },
   {
-    label: 'View',
+    label: "Edit",
     submenu: [
       {
-        label: 'Reload',
-        accelerator: 'CmdOrCtrl+R',
-        click (item, focusedWindow) {
-          if (focusedWindow) focusedWindow.reload()
-        }
+        role: "undo",
       },
       {
-        label: 'Toggle Developer Tools',
-        accelerator: process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
-        click (item, focusedWindow) {
-          if (focusedWindow) focusedWindow.webContents.toggleDevTools()
-        }
+        role: "redo",
       },
       {
-        type: 'separator'
+        type: "separator",
       },
       {
-        role: 'resetzoom'
+        role: "cut",
       },
       {
-        role: 'zoomin'
+        role: "copy",
       },
       {
-        role: 'zoomout'
+        role: "paste",
       },
       {
-        type: 'separator'
+        role: "delete",
       },
       {
-        role: 'togglefullscreen'
-      }
-    ]
+        role: "selectall",
+      },
+    ],
   },
   {
-    role: 'window',
+    label: "View",
     submenu: [
       {
-        role: 'minimize'
+        label: "Reload",
+        accelerator: "CmdOrCtrl+R",
+        click(item, focusedWindow) {
+          if (focusedWindow) focusedWindow.reload();
+        },
       },
       {
-        role: 'close'
-      }
-    ]
+        label: "Toggle Developer Tools",
+        accelerator:
+          process.platform === "darwin" ? "Alt+Command+I" : "Ctrl+Shift+I",
+        click(item, focusedWindow) {
+          if (focusedWindow) focusedWindow.webContents.toggleDevTools();
+        },
+      },
+      {
+        type: "separator",
+      },
+      {
+        role: "resetzoom",
+      },
+      {
+        role: "zoomin",
+      },
+      {
+        role: "zoomout",
+      },
+      {
+        type: "separator",
+      },
+      {
+        role: "togglefullscreen",
+      },
+    ],
   },
   {
-    role: 'help',
+    role: "window",
     submenu: [
       {
-        label: 'About Teslafunds Wallet',
-        click () {
-            var infoData = {};
-            infoData.version = app.getVersion();
-            mainWindow.webContents.send('showAboutDialog', infoData);
-        }
+        role: "minimize",
       },
       {
-        label: 'Report issue on GitHub',
-        click () {
-            open("https://github.com/teslafunds/Desktopwallet/issues");
-        }
-      }
-    ]
-  }
-]
+        role: "close",
+      },
+    ],
+  },
+  {
+    role: "help",
+    submenu: [
+      {
+        label: "About Dubx Wallet",
+        click() {
+          var infoData = {};
+          infoData.version = app.getVersion();
+          mainWindow.webContents.send("showAboutDialog", infoData);
+        },
+      },
+      {
+        label: "Report issue on GitHub",
+        click() {
+          open("https://github.com/dubxcoin/Desktopwallet/issues");
+        },
+      },
+    ],
+  },
+];
 
-if (process.platform === 'darwin') {
-  const name = app.getName()
+if (process.platform === "darwin") {
+  const name = app.getName();
   template.unshift({
     label: name,
     submenu: [
       {
-        role: 'about'
+        role: "about",
       },
       {
-        type: 'separator'
+        type: "separator",
       },
       {
-        role: 'services',
-        submenu: []
+        role: "services",
+        submenu: [],
       },
       {
-        type: 'separator'
+        type: "separator",
       },
       {
-        role: 'hide'
+        role: "hide",
       },
       {
-        role: 'hideothers'
+        role: "hideothers",
       },
       {
-        role: 'unhide'
+        role: "unhide",
       },
       {
-        type: 'separator'
+        type: "separator",
       },
       {
-        role: 'quit'
-      }
-    ]
-  })
+        role: "quit",
+      },
+    ],
+  });
   // Edit menu.
   template[1].submenu.push(
     {
-      type: 'separator'
+      type: "separator",
     },
     {
-      label: 'Speech',
+      label: "Speech",
       submenu: [
         {
-          role: 'startspeaking'
+          role: "startspeaking",
         },
         {
-          role: 'stopspeaking'
-        }
-      ]
+          role: "stopspeaking",
+        },
+      ],
     }
-  )
+  );
   // Window menu.
   template[3].submenu = [
     {
-      label: 'Close',
-      accelerator: 'CmdOrCtrl+W',
-      role: 'close'
+      label: "Close",
+      accelerator: "CmdOrCtrl+W",
+      role: "close",
     },
     {
-      label: 'Minimize',
-      accelerator: 'CmdOrCtrl+M',
-      role: 'minimize'
+      label: "Minimize",
+      accelerator: "CmdOrCtrl+M",
+      role: "minimize",
     },
     {
-      label: 'Zoom',
-      role: 'zoom'
+      label: "Zoom",
+      role: "zoom",
     },
     {
-      type: 'separator'
+      type: "separator",
     },
     {
-      label: 'Bring All to Front',
-      role: 'front'
-    }
-  ]
+      label: "Bring All to Front",
+      role: "front",
+    },
+  ];
 }
 
-ipcMain.on('openURL', (event, arg) => {
-    open(arg);
+ipcMain.on("openURL", (event, arg) => {
+  open(arg);
 });
 
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
+const menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);

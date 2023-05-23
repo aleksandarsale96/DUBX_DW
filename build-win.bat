@@ -2,4 +2,4 @@
 
 call git pull
 
-call npm run dist-win
+call npm run pack

@@ -1,8 +1,8 @@
 {
-    "icon": "assets/icon.ico",
+    "icon": "assets/dubx.ico",
     "tags": [
         "Utility"
     ],
-    "authors": "Dubx Team"
+    "authors": ["Dubx Team", "DubxDevelopers"]
 
 }

@@ -1,6 +1,6 @@
 {
-  "name": "DubxWallet",
-  "version": "0.1.7",
+  "name": "dubxwallet",
+  "version": "0.1.0",
   "description": "Desktop wallet for DUBX currency",
   "main": "main.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "installer": "electron-installer-windows --src dist/win-unpacked/ --dest dist/installers/ --config config.json"
   },
   "build": {
-    "appId": "Opus Dubx Wallet",
+    "appId": "Dubx Wallet",
     "files": [
       "modules/*",
       "assets/**/*",
@@ -22,7 +22,7 @@
     ],
     "win": {
       "target": "7z",
-      "icon": "build/icon.png",
+      "icon": "assets/dubx.ico",
       "artifactName": "Windows-${productName}-${version}.${ext}",
       "extraResources": [
         "bin/win/*"
@@ -48,7 +48,7 @@
   },
   "repository": "https://github.com/DUBXCOIN/go-dubxcoin/releases/tag/v.1.0.1",
   "keywords": [
-    "Libertas",
+    "ArabianChain",
     "Dubx",
     "Desktop",
     "Wallet"
