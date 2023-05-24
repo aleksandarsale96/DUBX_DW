@@ -6,8 +6,9 @@
   margin-left: 10px !important;
   color: #ffffff !important; 
   /*background-color: rgb(34, 19, 122) !important;*/
-  background: #e4cb87 !important;
-  border: 1px solid #e4cb87 !important;
+  background: rgb(27,248,236);
+  background: linear-gradient(90deg, rgba(27,248,236,1) 0%, rgba(137,73,255,1) 100%) !important;
+  border: 1px solid #6bc1ff !important;
 } 
   
 .dt-button:hover, 
@@ -15,8 +16,9 @@
 .dt-button.active, 
 .open .dropdown-toggle.dt-button { 
   color: #ffffff !important; 
-  background: #e4cb87;
-  border: 1px solid #e4cb87 !important; 
+  background: rgb(27,248,236);
+  background: linear-gradient(90deg, rgba(27,248,236,1) 0%, rgba(137,73,255,1) 100%);
+  border: 1px solid #6bc1ff !important; 
 } 
   
 .dt-button.active, 
@@ -39,8 +41,9 @@ fieldset[disabled] .dt-button:active,
 .dt-button.disabled.active, 
 .dt-button[disabled].active, 
 fieldset[disabled] .dt-button.active { 
-  background-color: #e4cb87 !important; 
-  border-color: #e4cb87 !important; 
+  background: rgb(27,248,236);
+  background: linear-gradient(90deg, rgba(27,248,236,1) 0%, rgba(137,73,255,1) 100%) !important; 
+  border-color: #6bc1ff !important; 
 } 
   
 .dt-button .badge { 
@@ -142,7 +145,7 @@ table.dataTable {
     background-color: #acbad4; }
   table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
     background-color: #1f2326;
-    color: #e4cb87; 
+    color: #6bc1ff; 
   }
   table.dataTable.display tbody tr.odd > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd > .sorting_2 {
     background-color: #1f2327; }

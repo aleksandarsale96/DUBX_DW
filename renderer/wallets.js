@@ -8,7 +8,7 @@ class Wallets {
     $.getJSON(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
       function (price) {
-        DUBXWallets._setPrice(price["dubxcoin"].usd);
+        DUBXWallets._setPrice(price["ethereum"].usd);
       }
     );
   }
@@ -232,7 +232,7 @@ $(document).on("render_wallets", function () {
         DUBXDatatabse.setWallets(wallets);
 
         $("#dlgChangeWalletName").iziModal("close");
-        DUBXFWallets.renderWalletsState();
+        DUBXWallets.renderWalletsState();
       }
 
       $("#btnChangeWalletNameConfirm")

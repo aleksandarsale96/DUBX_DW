@@ -1,7 +1,7 @@
 .btn-etho {
-    color: #e4cb87;
+    color: #6bc1ff;
     background: transparent;
-    border: 1px solid #e4cb87 !important;
+    border: 1px solid #6bc1ff !important;
   }
 
   .btn-etho:hover,
@@ -10,7 +10,9 @@
   .btn-etho.active,
   .open .dropdown-toggle.btn-etho {
     color: #ffffff;
-    background: #e4cb87;
+    /* background: #6bc1ff; */
+    background: rgb(27,248,236);
+    background: linear-gradient(90deg, rgba(27,248,236,1) 0%, rgba(137,73,255,1) 100%);
     border: 1px solid #fefeff !important; 
   }
 

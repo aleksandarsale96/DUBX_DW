@@ -1,4 +1,4 @@
-# Libertas Desktop Wallet
+# Dubx Desktop Wallet
 
 **Clone and run to see it in action.**
 

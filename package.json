@@ -22,7 +22,7 @@
     ],
     "win": {
       "target": "7z",
-      "icon": "assets/dubx.ico",
+      "icon": "assets/dubx1.ico",
       "artifactName": "Windows-${productName}-${version}.${ext}",
       "extraResources": [
         "bin/win/*"
