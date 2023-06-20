@@ -1,45 +1,53 @@
-const {app, dialog, ipcMain} = require('electron');
-const storage = require('electron-storage');
-const datastore = require('nedb');
-const moment = require('moment');
-const path = require('path');
-const fs = require('fs');
-const os = require('os');
+const { app, dialog, ipcMain } = require("electron");
+const storage = require("electron-storage");
+const datastore = require("nedb");
+const moment = require("moment");
+const path = require("path");
+const fs = require("fs");
+const os = require("os");
 
-const dbPath = path.join(app.getPath('userData'), 'storage.db');
+const dbPath = path.join(app.getPath("userData"), "storage.db");
 const db = new datastore({ filename: dbPath });
 db.loadDatabase(function (err) {
   // Now commands will be executed
 });
 
 // index the block field
-db.ensureIndex({ fieldName: 'block' }, function (err) {
+db.ensureIndex({ fieldName: "block" }, function (err) {
   // If there was an error, err is not null
 });
 
 // index the txhash field
-db.ensureIndex({ fieldName: 'txhash', unique: true }, function (err) {
+db.ensureIndex({ fieldName: "txhash", unique: true }, function (err) {
   // If there was an error, err is not null
 });
 
-ipcMain.on('storeTransaction', (event, arg) => {
-  db.update({ txhash: arg.txhash }, arg, { upsert: true }, function (err, numReplaced, upsert) {
-    // do nothing for now
-  });
+ipcMain.on("storeTransaction", (event, arg) => {
+  db.update(
+    { txhash: arg.txhash },
+    arg,
+    { upsert: true },
+    function (err, numReplaced, upsert) {
+      // do nothing for now
+    }
+  );
 });
 
-ipcMain.on('getTransactions', (event, arg) => {
+ipcMain.on("getTransactions", (event, arg) => {
   db.find({}).exec(function (err, docs) {
     ResultData = [];
 
     // sort the data
-    docs.sort((a, b)=>{
-      if ((!b.block) && (a.block)) {
+    docs.sort((a, b) => {
+      if (!b.block && a.block) {
         return 1;
-      } else if ((b.block) && (!a.block)) {
+      } else if (b.block && !a.block) {
         return -1;
-      } else if ((!b.block) && (!a.block)) {
-        return moment(b.timestamp, "YYYY-MM-DD HH:mm:ss").toDate() - moment(a.timestamp, "YYYY-MM-DD HH:mm:ss").toDate();
+      } else if (!b.block && !a.block) {
+        return (
+          moment(b.timestamp, "YYYY-MM-DD HH:mm:ss").toDate() -
+          moment(a.timestamp, "YYYY-MM-DD HH:mm:ss").toDate()
+        );
       } else {
         return b.block - a.block;
       }
@@ -51,7 +59,7 @@ ipcMain.on('getTransactions', (event, arg) => {
         docs[i].timestamp,
         docs[i].fromaddr,
         docs[i].toaddr,
-        docs[i].value
+        docs[i].value,
       ]);
     }
 
@@ -60,7 +68,7 @@ ipcMain.on('getTransactions', (event, arg) => {
   });
 });
 
-ipcMain.on('getJSONFile', (event, arg) => {
+ipcMain.on("getJSONFile", (event, arg) => {
   storage.get(arg, (err, data) => {
     if (err) {
       event.returnValue = null;
@@ -70,7 +78,7 @@ ipcMain.on('getJSONFile', (event, arg) => {
   });
 });
 
-ipcMain.on('setJSONFile', (event, arg) => {
+ipcMain.on("setJSONFile", (event, arg) => {
   storage.set(arg.file, arg.data, (err) => {
     if (err) {
       event.returnValue = { success: false, error: err };
@@ -80,38 +88,40 @@ ipcMain.on('setJSONFile', (event, arg) => {
   });
 });
 
-ipcMain.on('deleteBlockchainData', (event, arg) => {  
-  var deleteFolderRecursive = function(path) {
-    if( fs.existsSync(path) ) {
-      fs.readdirSync(path).forEach(function(file,index){
+ipcMain.on("deleteBlockchainData", (event, arg) => {
+  var deleteFolderRecursive = function (path) {
+    if (fs.existsSync(path)) {
+      fs.readdirSync(path).forEach(function (file, index) {
         var curPath = path + "/" + file;
-        if(fs.lstatSync(curPath).isDirectory()) { // recurse
+        if (fs.lstatSync(curPath).isDirectory()) {
+          // recurse
           deleteFolderRecursive(curPath);
-        } else { // delete file
+        } else {
+          // delete file
           fs.unlinkSync(curPath);
         }
       });
       fs.rmdirSync(path);
     }
-  };  
+  };
 
   function getBlockchainDataLocation() {
-    switch(os.type()) {
-        case "Darwin":
-          return path.join(os.homedir(), 'Library', 'Dubxcoin', 'gdubx');
-        case "Linux":
-          return path.join(os.homedir(), '.dubxcoin', 'gdubx');  
-        default:
-          return path.join(process.env.APPDATA, 'Dubxcoin', 'gdubx');
-    }     
+    switch (os.type()) {
+      case "Darwin":
+        return path.join(os.homedir(), "Library", "Dubxcoin", "gdubx");
+      case "Linux":
+        return path.join(os.homedir(), ".dubxcoin", "gdubx");
+      default:
+        return path.join(process.env.APPDATA, "dubxcoin", "gdubx");
+    }
   }
 
   // delete folder in a synchronous recursive maner
   deleteFolderRecursive(getBlockchainDataLocation());
   event.returnValue = true;
-});  
+});
 
-ipcMain.on('deleteTransactions', (event, arg) => {
+ipcMain.on("deleteTransactions", (event, arg) => {
   fs.unlink(dbPath, (err) => {
     if (err) {
       event.returnValue = { success: false, error: err };
@@ -119,10 +129,10 @@ ipcMain.on('deleteTransactions', (event, arg) => {
       event.returnValue = { success: true, error: null };
     }
   });
-}); 
+});
 
-ipcMain.on('deleteWalletData', (event, arg) => {
-  fs.unlink(path.join(app.getPath('userData'), 'wallets.json'), (err) => {
+ipcMain.on("deleteWalletData", (event, arg) => {
+  fs.unlink(path.join(app.getPath("userData"), "wallets.json"), (err) => {
     if (err) {
       event.returnValue = { success: false, error: err };
     } else {

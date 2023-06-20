@@ -1,105 +1,122 @@
-const {app, dialog, ipcMain} = require('electron');
-const admZip = require('adm-zip');
-const path = require('path');
-const fs = require('fs-extra');
-const os = require('os');
+const { app, dialog, ipcMain } = require("electron");
+const admZip = require("adm-zip");
+const path = require("path");
+const fs = require("fs-extra");
+const os = require("os");
 
 class Accounts {
-    constructor() {
-  }
+  constructor() {}
 
   getKeyStoreLocation() {
-    switch(os.type()) {
-        case "Darwin":
-          return path.join(os.homedir(), 'Library', 'Transaction_service_fee', 'keystore');
-        case "Linux":
-          return path.join(os.homedir(), '.transaction_service_fee', 'keystore');
-        default:
-          return path.join(process.env.APPDATA, 'Transaction_service_fee', 'keystore');
-    }     
-}
+    switch (os.type()) {
+      case "Darwin":
+        return path.join(os.homedir(), "Library", "Dubxcoin", "keystore");
+      case "Linux":
+        return path.join(os.homedir(), ".dubxcoin", "keystore");
+      default:
+        return path.join(process.env.APPDATA, "dubxcoin", "keystore");
+    }
+  }
+
+  getFolderForZipLocation() {
+    switch (os.type()) {
+      case "Darwin":
+        return path.join(os.homedir(), "Desktop", "accounts.zip");
+      case "Linux":
+        return path.join(os.homedir(), "Desktop", "accounts.zip");
+      default:
+        return path.join(app.getPath("documents"), "accounts.zip");
+    }
+  }
 
   exportAccounts() {
     var savePath = dialog.showSaveDialog({
-        defaultPath: path.join(app.getPath('documents'), 'accounts.zip')
+      //   defaultPath: path.join(app.getPath("documents"), "accounts.zip"),
+      defaultPath: DUBXAccounts.getFolderForZipLocation(),
     });
 
     if (savePath) {
-        const accPath = DUBXAccounts.getKeyStoreLocation();
+      const accPath = DUBXAccounts.getKeyStoreLocation();
 
-        fs.readdir(accPath, function(err, files) {
-            var zip = new admZip();
+      fs.readdir(accPath, function (err, files) {
+        var zip = new admZip();
 
-            for(let filePath of files) {
-                zip.addFile(filePath, fs.readFileSync(path.join(accPath, filePath)));
-            }
+        for (let filePath of files) {
+          zip.addFile(filePath, fs.readFileSync(path.join(accPath, filePath)));
+        }
 
-            // store zip to path
-            zip.writeZip(savePath);
-        });
+        // store zip to path
+        zip.writeZip(savePath);
+      });
     }
   }
 
+  importAccounts(accountsFile) {
+    var extName = path.extname(accountsFile).toUpperCase();
+    const accPath = DUBXAccounts.getKeyStoreLocation();
 
-    importAccounts(accountsFile) {
-        var extName = path.extname(accountsFile).toUpperCase();
-        const accPath = DUBXAccounts.getKeyStoreLocation();
-
-        if (extName == '.ZIP') {
-            var zip = new admZip(accountsFile);
-            zip.extractAllTo(accPath, true);
-            return { success: true, text: "Accounts ware successfully imported." };
-        } else {
-            try {
-                fs.copySync(accountsFile, path.join(accPath, path.basename(accountsFile)));
-                return { success: true, text: "Account was successfully imported." };
-            } catch (err) {
-                return { success: false, text: err };
-            }
-        }
+    if (extName == ".ZIP") {
+      var zip = new admZip(accountsFile);
+      zip.extractAllTo(accPath, true);
+      return { success: true, text: "Accounts ware successfully imported." };
+    } else {
+      try {
+        fs.copySync(
+          accountsFile,
+          path.join(accPath, path.basename(accountsFile))
+        );
+        return { success: true, text: "Account was successfully imported." };
+      } catch (err) {
+        return { success: false, text: err };
+      }
     }
+  }
 
   saveAccount(account) {
-    fs.writeFile(path.join(DUBXAccountsthis.getKeyStoreLocation(), '0x' + account.address), JSON.stringify(account), 'utf8', function() {
+    fs.writeFile(
+      path.join(DUBXAccounts.getKeyStoreLocation(), "0x" + account.address),
+      JSON.stringify(account),
+      "utf8",
+      function () {
         // file was written
-    });
+      }
+    );
   }
 }
 
-ipcMain.on('exportAccounts', (event, arg) => {
-    DUBXAccounts.exportAccounts();
+ipcMain.on("exportAccounts", (event, arg) => {
+  DUBXAccounts.exportAccounts();
 });
 
-ipcMain.on('importAccounts', (event, arg) => {
-    var openPath = dialog.showOpenDialog({
-        defaultPath: app.getPath('documents'),
-        "filters":
-        [
-            {
-                "name": "archive",
-                "extensions": ["zip"]
-            },
-            {
-                "name": "json",
-                "extensions": ["json"]
-            },
-            {
-                "name": "All",
-                "extensions": ["*.*"]
-            }
-        ]
-    });
+ipcMain.on("importAccounts", (event, arg) => {
+  var openPath = dialog.showOpenDialog({
+    defaultPath: app.getPath("documents"),
+    filters: [
+      {
+        name: "archive",
+        extensions: ["zip"],
+      },
+      {
+        name: "json",
+        extensions: ["json"],
+      },
+      {
+        name: "All",
+        extensions: ["*.*"],
+      },
+    ],
+  });
 
-    if (openPath) {
-        event.returnValue = DUBXAccounts.importAccounts(openPath[0]);
-    } else {
-        event.returnValue = {};
-    }
+  if (openPath) {
+    event.returnValue = DUBXAccounts.importAccounts(openPath[0]);
+  } else {
+    event.returnValue = {};
+  }
 });
 
-ipcMain.on('saveAccount', (event, arg) => {
-    DUBXAccounts.saveAccount(arg);
-    event.returnValue = true;
+ipcMain.on("saveAccount", (event, arg) => {
+  DUBXAccounts.saveAccount(arg);
+  event.returnValue = true;
 });
 
 DUBXAccounts = new Accounts();

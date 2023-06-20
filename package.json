@@ -7,7 +7,10 @@
     "start": "electron .",
     "pack": "build --dir",
     "linux": "build --linux",
+    "mac": "build --mac",
+    "build:macos": "electron-builder --macos",
     "dist": "build",
+    "packMac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=build/icon.icns --prune=true --out=dist",
     "installer": "electron-installer-windows --src dist/win-unpacked/ --dest dist/installers/ --config config.json"
   },
   "build": {
@@ -31,7 +34,7 @@
     "asar": true,
     "linux": {
       "target": "tar.gz",
-      "icon": "assets/images/Opus1024.png",
+      "icon": "assets/images/logo1024.png",
       "artifactName": "Linux-${productName}-${version}.${ext}",
       "extraResources": [
         "bin/linux/*"

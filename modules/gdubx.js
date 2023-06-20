@@ -16,7 +16,7 @@ class Gdubx {
     }
     if (this.logGdubxEvents) {
       this.logStream = fs.createWriteStream(
-        path.join(app.getPath("userData"), "gethlog.txt"),
+        path.join(app.getPath("userData"), "gdubxlog.txt"),
         {
           flags: "a",
         }
@@ -64,7 +64,7 @@ class Gdubx {
         "--wsport",
         "8327",
         "--wsapi",
-        "admin,db,eth,net,miner,personal,web3",
+        "admin,db,eth,net,personal,web3",
       ]);
 
       if (!this.gdubxProcess) {
